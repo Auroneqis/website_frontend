@@ -1,0 +1,437 @@
+/* ---------- Hero Section ---------- */
+.aq-about-hero {
+    padding: 100px 0 80px;
+    position: relative;
+    overflow: hidden;
+}
+
+.aq-about-hero-orb {
+    position: absolute;
+    top: 20%;
+    right: 10%;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(124, 58, 237, 0.12) 0%, transparent 70%);
+    filter: blur(40px);
+    pointer-events: none;
+}
+
+.aq-about-hero-flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.aq-about-hero-left {
+    max-width: 600px;
+    flex: 1 1 340px;
+}
+
+.aq-about-hero-desc {
+    color: var(--text-muted);
+    font-size: 1.15rem;
+    line-height: 1.7;
+    margin-bottom: 40px;
+}
+
+.aq-about-hero-right {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.aq-about-hero-img {
+    width: 350px;
+    height: auto;
+    max-width: 100%;
+}
+
+/* ---------- Mission & Vision ---------- */
+.aq-about-mv-section {
+    padding: 80px 0;
+    background: var(--bg-2);
+}
+
+.aq-about-mv-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+}
+
+/* ---------- Expertise Section ---------- */
+.aq-about-expertise-section {
+    padding: 100px 0;
+}
+
+.aq-about-expertise-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+}
+
+.aq-about-expertise-left {
+    /* text column */
+}
+
+.aq-about-expertise-desc {
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 36px;
+}
+
+.aq-about-expertise-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.aq-about-expertise-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.aq-about-expertise-item span {
+    font-size: 0.95rem;
+}
+
+.aq-about-stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.aq-about-stat-card {
+    text-align: center;
+    padding: 32px 20px !important;
+}
+
+.aq-about-stat-value {
+    font-family: Syne, sans-serif;
+    font-weight: 700;
+    font-size: 2.2rem;
+    margin-bottom: 4px;
+}
+
+.aq-about-stat-label {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+/* ---------- Values Section ---------- */
+.aq-about-values-section {
+    padding: 80px 0;
+    background: var(--bg-2);
+}
+
+.aq-about-values-header {
+    text-align: center;
+    margin-bottom: 56px;
+}
+
+.aq-about-values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+}
+
+.aq-about-value-card {
+    text-align: center;
+}
+
+.aq-about-value-icon {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: rgba(0, 212, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+}
+
+/* ---------- Team Section ---------- */
+.aq-about-team-section {
+    padding: 80px 0;
+}
+
+.aq-about-team-header {
+    text-align: center;
+    margin-bottom: 56px;
+}
+
+.aq-about-team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+}
+
+.aq-about-team-card {
+    text-align: center;
+}
+
+.aq-about-team-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    font-family: Syne, sans-serif;
+    font-weight: 800;
+    font-size: 1.8rem;
+    color: #000;
+}
+
+.aq-about-team-name {
+    font-family: Syne, sans-serif;
+    font-weight: 700;
+    margin-bottom: 4px;
+    margin-top: 0;
+}
+
+.aq-about-team-role {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+/* ---------- CTA Section ---------- */
+.aq-about-cta-section {
+    padding: 80px 0;
+    background: var(--bg-2);
+    text-align: center;
+}
+
+.aq-about-cta-desc {
+    color: var(--text-muted);
+    margin-bottom: 36px;
+    font-size: 1.1rem;
+}
+
+/* ============================================================
+   RESPONSIVE BREAKPOINTS
+   ============================================================ */
+
+/* ---------- Large Tablets (≤ 1100px) ---------- */
+@media (max-width: 1100px) {
+    .aq-about-expertise-grid {
+        gap: 48px;
+    }
+
+    .aq-about-hero-img {
+        width: 280px;
+    }
+}
+
+/* ---------- Tablets (≤ 900px) ---------- */
+@media (max-width: 900px) {
+    .aq-about-hero {
+        padding: 80px 0 60px;
+    }
+
+    /* Hero: image moves below text */
+    .aq-about-hero-flex {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 32px;
+    }
+
+    .aq-about-hero-left {
+        max-width: 100%;
+    }
+
+    .aq-about-hero-right {
+        width: 100%;
+    }
+
+    .aq-about-hero-img {
+        width: 100%;
+        max-width: 380px;
+        margin: 0 auto;
+        display: block;
+    }
+
+    /* Expertise: stack columns */
+    .aq-about-expertise-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+    }
+
+    .aq-about-stats-grid {
+        max-width: 480px;
+        margin: 0 auto;
+    }
+}
+
+/* ---------- Small Tablets / Large Phones (≤ 768px) ---------- */
+@media (max-width: 768px) {
+    .aq-about-hero {
+        padding: 64px 0 48px;
+    }
+
+    .aq-about-hero-desc {
+        font-size: 1rem;
+    }
+
+    .aq-about-hero-orb {
+        width: 250px;
+        height: 250px;
+        top: 5%;
+        right: 0;
+        opacity: 0.6;
+    }
+
+    .aq-about-mv-section {
+        padding: 60px 0;
+    }
+
+    .aq-about-expertise-section {
+        padding: 70px 0;
+    }
+
+    .aq-about-values-section {
+        padding: 60px 0;
+    }
+
+    .aq-about-team-section {
+        padding: 60px 0;
+    }
+
+    .aq-about-cta-section {
+        padding: 60px 0;
+    }
+
+    .aq-about-cta-desc {
+        font-size: 1rem;
+    }
+
+    /* Team: 2 columns on tablet */
+    .aq-about-team-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    /* Values: 2 columns */
+    .aq-about-values-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+}
+
+/* ---------- Mobile (≤ 480px) ---------- */
+@media (max-width: 480px) {
+    .aq-about-hero {
+        padding: 48px 0 40px;
+    }
+
+    .aq-about-hero-flex {
+        gap: 24px;
+    }
+
+    .aq-about-hero-desc {
+        font-size: 0.95rem;
+        margin-bottom: 28px;
+    }
+
+    .aq-about-hero-img {
+        max-width: 100%;
+        border-radius: 12px;
+    }
+
+    .aq-about-mv-section {
+        padding: 48px 0;
+    }
+
+    .aq-about-mv-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .aq-about-expertise-section {
+        padding: 56px 0;
+    }
+
+    /* Stats: 2x2 on mobile */
+    .aq-about-stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        max-width: 100%;
+    }
+
+    .aq-about-stat-value {
+        font-size: 1.8rem;
+    }
+
+    .aq-about-stat-card {
+        padding: 24px 12px !important;
+    }
+
+    .aq-about-values-section {
+        padding: 48px 0;
+    }
+
+    /* Values: single column on small mobile */
+    .aq-about-values-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .aq-about-values-header {
+        margin-bottom: 36px;
+    }
+
+    .aq-about-team-section {
+        padding: 48px 0;
+    }
+
+    /* Team: 2 columns on mobile (avatars are small enough) */
+    .aq-about-team-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+    }
+
+    .aq-about-team-header {
+        margin-bottom: 36px;
+    }
+
+    .aq-about-team-avatar {
+        width: 64px;
+        height: 64px;
+        font-size: 1.4rem;
+    }
+
+    .aq-about-cta-section {
+        padding: 48px 0;
+    }
+
+    .aq-about-cta-desc {
+        font-size: 0.95rem;
+        margin-bottom: 28px;
+    }
+}
+
+/* ---------- Very Small Phones (≤ 360px) ---------- */
+@media (max-width: 360px) {
+    .aq-about-stat-value {
+        font-size: 1.5rem;
+    }
+
+    .aq-about-team-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .aq-about-values-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .aq-about-hero-desc {
+        font-size: 0.9rem;
+    }
+}

@@ -1,0 +1,606 @@
+/* ---------- Layout Utilities ---------- */
+.aq-hero-section {
+    min-height: 92vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding-top: 40px;
+}
+
+.aq-hero-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+    width: 100%;
+}
+
+.aq-hero-content {
+    animation: aq-fadeUp 0.8s ease;
+}
+
+.aq-hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0, 212, 255, 0.08);
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    border-radius: 50px;
+    padding: 6px 16px;
+    margin-bottom: 24px;
+}
+
+.aq-hero-badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: aq-pulse-ring 2s infinite;
+}
+
+.aq-hero-badge-text {
+    font-size: 0.8rem;
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.aq-hero-title {
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 600;
+    line-height: 1.1;
+    margin-bottom: 24px;
+}
+
+.aq-hero-desc {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-bottom: 36px;
+    line-height: 1.7;
+    max-width: 480px;
+}
+
+.aq-hero-cta-group {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.aq-stats-row {
+    display: flex;
+    gap: 32px;
+    margin-top: 48px;
+    flex-wrap: wrap;
+}
+
+.aq-stat-value {
+    font-family: Syne, sans-serif;
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: var(--accent);
+    margin: 0;
+}
+
+.aq-stat-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+/* ---------- Hero Visual (Orb + Icons) ---------- */
+.aq-hero-visual {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.aq-hero-orbit-ring {
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 212, 255, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    animation: aq-float 6s ease-in-out infinite;
+}
+
+.aq-hero-orbit-inner {
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 212, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.aq-hero-logo-core {
+    width: 140px;
+    height: 140px;
+    border-radius: 90px;
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(124, 58, 237, 0.15));
+    border: 1px solid rgba(0, 212, 255, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 60px rgba(0, 212, 255, 0.2);
+}
+
+/* ---------- Trust Strip ---------- */
+.aq-trust-strip {
+    padding: 40px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.aq-trust-inner {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: wrap;
+}
+
+.aq-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.aq-trust-label {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* ---------- Services Section ---------- */
+.aq-services-section {
+    padding: 100px 0;
+}
+
+.aq-section-header {
+    text-align: center;
+    margin-bottom: 64px;
+}
+
+.aq-services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+}
+
+.aq-services-footer {
+    text-align: center;
+    margin-top: 48px;
+}
+
+/* ---------- Why Choose Us ---------- */
+.aq-why-section {
+    padding: 100px 0;
+    background: var(--bg-2);
+}
+
+.aq-why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+}
+
+.aq-why-left {
+    /* left column text */
+}
+
+.aq-why-right {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* ---------- Industries Section ---------- */
+.aq-industries-section {
+    padding: 80px 0;
+}
+
+.aq-industries-pills {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.aq-industry-pill {
+    padding: 12px 28px;
+    border-radius: 50px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: border-color 0.2s, color 0.2s;
+    cursor: default;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.aq-industry-pill:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.aq-industries-footer {
+    text-align: center;
+    margin-top: 40px;
+}
+
+/* ---------- Testimonials ---------- */
+.aq-testimonials-section {
+    padding: 80px 0;
+    background: var(--bg-2);
+}
+
+.aq-testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+/* ---------- CTA Banner ---------- */
+.aq-cta-section {
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.aq-cta-inner {
+    position: relative;
+    text-align: center;
+}
+
+.aq-cta-title {
+    font-family: Syne, sans-serif;
+    font-weight: 600;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    margin-bottom: 20px;
+    line-height: 1.15;
+}
+
+.aq-cta-desc {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    margin: 0 auto 40px;
+    max-width: 500px;
+}
+
+.aq-cta-btn-group {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* ---------- Animations ---------- */
+@keyframes aq-fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes aq-float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-16px);
+    }
+}
+
+@keyframes aq-pulse-ring {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 8px rgba(0, 212, 255, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 212, 255, 0);
+    }
+}
+
+/* ============================================================
+   RESPONSIVE BREAKPOINTS
+   ============================================================ */
+
+/* ---------- Large Tablets (≤ 1100px) ---------- */
+@media (max-width: 1100px) {
+    .aq-hero-grid {
+        gap: 40px;
+    }
+
+    .aq-why-grid {
+        gap: 48px;
+    }
+
+    .aq-hero-orbit-ring {
+        width: 280px;
+        height: 280px;
+    }
+
+    .aq-hero-orbit-inner {
+        width: 200px;
+        height: 200px;
+    }
+}
+
+/* ---------- Tablets (≤ 900px) ---------- */
+@media (max-width: 900px) {
+
+    /* Hero: stack vertically, hide visual orb */
+    .aq-hero-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+        text-align: center;
+    }
+
+    .aq-hero-visual {
+        display: none;
+    }
+
+    .aq-hero-badge {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .aq-hero-desc {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .aq-hero-cta-group {
+        justify-content: center;
+    }
+
+    .aq-stats-row {
+        justify-content: center;
+        gap: 24px;
+    }
+
+    /* Why Us: stack columns */
+    .aq-why-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+    }
+
+    .aq-why-left {
+        text-align: center;
+    }
+
+    .aq-why-left a {
+        margin: 0 auto;
+    }
+
+    /* Trust strip: tighten */
+    .aq-trust-inner {
+        gap: 24px;
+    }
+}
+
+/* ---------- Small Tablets / Large Phones (≤ 768px) ---------- */
+@media (max-width: 768px) {
+    .aq-hero-section {
+        min-height: auto;
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+
+    .aq-hero-title {
+        font-size: clamp(2rem, 8vw, 2.8rem);
+    }
+
+    .aq-hero-desc {
+        font-size: 1rem;
+    }
+
+    .aq-stats-row {
+        gap: 20px;
+        margin-top: 36px;
+    }
+
+    .aq-stat-value {
+        font-size: 1.5rem;
+    }
+
+    /* Services: 1 column on small tablets */
+    .aq-services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .aq-services-section {
+        padding: 70px 0;
+    }
+
+    .aq-why-section {
+        padding: 70px 0;
+    }
+
+    .aq-why-right {
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
+
+    .aq-industries-section {
+        padding: 60px 0;
+    }
+
+    .aq-testimonials-section {
+        padding: 60px 0;
+    }
+
+    .aq-cta-section {
+        padding: 70px 0;
+    }
+
+    .aq-cta-title {
+        font-size: clamp(1.7rem, 6vw, 2.4rem);
+    }
+
+    /* Trust strip: 2-column wrap */
+    .aq-trust-inner {
+        gap: 16px 32px;
+    }
+
+    .aq-trust-label {
+        font-size: 0.82rem;
+    }
+}
+
+/* ---------- Mobile (≤ 480px) ---------- */
+@media (max-width: 480px) {
+    .aq-hero-section {
+        padding-top: 40px;
+        padding-bottom: 48px;
+    }
+
+    .aq-hero-title {
+        font-size: 2rem;
+        line-height: 1.2;
+    }
+
+    .aq-hero-desc {
+        font-size: 0.95rem;
+        margin-bottom: 28px;
+    }
+
+    .aq-hero-badge {
+        padding: 5px 12px;
+    }
+
+    .aq-hero-cta-group {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .aq-hero-cta-group a {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .aq-stats-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px 16px;
+        margin-top: 32px;
+        text-align: center;
+    }
+
+    /* Services: single column */
+    .aq-services-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .aq-services-section {
+        padding: 56px 0;
+    }
+
+    .aq-section-header {
+        margin-bottom: 40px;
+    }
+
+    /* Why Us cards: single column on mobile */
+    .aq-why-right {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .aq-why-section {
+        padding: 56px 0;
+    }
+
+    /* Industries: smaller pills */
+    .aq-industry-pill {
+        padding: 10px 20px;
+        font-size: 0.82rem;
+    }
+
+    .aq-industries-section {
+        padding: 56px 0;
+    }
+
+    /* Testimonials */
+    .aq-testimonials-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .aq-testimonials-section {
+        padding: 56px 0;
+    }
+
+    /* CTA */
+    .aq-cta-section {
+        padding: 56px 0;
+    }
+
+    .aq-cta-title {
+        font-size: 1.7rem;
+    }
+
+    .aq-cta-desc {
+        font-size: 1rem;
+    }
+
+    .aq-cta-btn-group {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .aq-cta-btn-group a {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+
+    /* Trust strip: stack */
+    .aq-trust-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 0 16px;
+    }
+
+    .aq-trust-strip {
+        padding: 28px 0;
+    }
+}
+
+/* ---------- Very Small Phones (≤ 360px) ---------- */
+@media (max-width: 360px) {
+    .aq-hero-title {
+        font-size: 1.7rem;
+    }
+
+    .aq-stat-value {
+        font-size: 1.3rem;
+    }
+
+    .aq-industry-pill {
+        padding: 8px 16px;
+        font-size: 0.78rem;
+    }
+}

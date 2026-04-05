@@ -5,6 +5,19 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import baseURL from '../api/api';
 
+// ============ shared hook ============
+function useWindowWidth() {
+  const [width, setWidth] = useState(
+    typeof window !== 'undefined' ? window.innerWidth : 1200
+  );
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  return width;
+}
+
 // ============ CASE STUDIES ============
 const cases = [
   {
@@ -89,19 +102,8 @@ export function CaseStudies() {
 }
 
 // ============ BLOG ============
-const posts = [
-  { tag: 'AI', color: '#06ffa5', date: 'Mar 15, 2025', title: 'How Generative AI is Reshaping Enterprise Software in 2025', excerpt: 'A deep dive into the practical applications of LLMs in business workflows and the ROI companies are seeing.', readTime: '6 min read' },
-  { tag: 'Mobile', color: '#7c3aed', date: 'Mar 8, 2025', title: 'Flutter vs React Native: The Definitive 2025 Comparison', excerpt: 'We compare performance, ecosystem, and hiring considerations to help you choose the right framework.', readTime: '8 min read' },
-  { tag: 'Cloud', color: '#f59e0b', date: 'Feb 28, 2025', title: 'Cutting Cloud Costs: 10 Strategies That Actually Work', excerpt: 'Practical, battle-tested approaches to reducing your AWS or Azure bill without sacrificing performance.', readTime: '5 min read' },
-  { tag: 'Web Dev', color: '#00d4ff', date: 'Feb 20, 2025', title: 'The Future of Web Performance: Core Web Vitals 2025 Update', excerpt: "Google's latest ranking signals and what they mean for your development priorities this year.", readTime: '4 min read' },
-  { tag: 'QA', color: '#f43f5e', date: 'Feb 10, 2025', title: 'AI-Powered Testing: How Automation is Changing QA Forever', excerpt: 'From self-healing test scripts to intelligent test generation — the QA landscape is transforming rapidly.', readTime: '7 min read' },
-  { tag: 'Consulting', color: '#8b5cf6', date: 'Jan 30, 2025', title: 'Digital Transformation in 2025: Lessons from 50 Enterprise Projects', excerpt: 'The patterns, pitfalls, and success factors we observed across our most complex transformation engagements.', readTime: '10 min read' },
-];
-
 export function Blog() {
-
   const navigate = useNavigate();
-
   const [blogs, setBlogs] = useState([]);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
@@ -110,15 +112,10 @@ export function Blog() {
   const fetchBlogs = async (pageNumber) => {
     try {
       setLoading(true);
-
       const res = await axios.get(`${baseURL}/admin/blogs?page=${pageNumber} `);
-
       setBlogs(res.data.content || []);
       setTotalPages(res.data.totalPages || 0);
       setPage(res.data.number || 0);
-
-      console.log("blog data: ", res.data);
-
     } catch (error) {
       console.error("Error fetching blogs:", error);
     } finally {
@@ -126,35 +123,15 @@ export function Blog() {
     }
   };
 
-  // ✅ Initial + page change
-  useEffect(() => {
-    fetchBlogs(page);
-  }, [page]);
+  useEffect(() => { fetchBlogs(page); }, [page]);
 
-  const getPaginationRange = (currentPage, totalPages) => {
-    const visiblePages = 5;
-    const half = Math.floor(visiblePages / 2);
-
-    let start = Math.max(currentPage - half, 0);
-    let end = Math.min(start + visiblePages, totalPages);
-
-    if (end - start < visiblePages) {
-      start = Math.max(end - visiblePages, 0);
-    }
-
-    return Array.from({ length: end - start }, (_, i) => start + i);
-  };
-
-  // ✅ Same HTML strip logic
   const stripHtml = (html) => {
     const temp = document.createElement("div");
     temp.innerHTML = html;
     return temp.textContent || temp.innerText || "";
   };
 
-  const handleReadMore = (id) => {
-    navigate(`/blog/details/${id}`);
-  }
+  const handleReadMore = (id) => navigate(`/blog/details/${id}`);
 
   return (
     <div style={{ paddingTop: 72 }}>
@@ -172,52 +149,20 @@ export function Blog() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 24 }}>
             {blogs.map(blog => (
               <div key={blog.id} className="card" style={{ cursor: 'pointer' }}>
-
-                {/* Category + Date */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-                  <span style={{
-                    padding: '3px 10px',
-                    borderRadius: 50,
-                    background: '#00d4ff15',
-                    color: '#00d4ff',
-                    fontSize: '0.75rem',
-                    fontWeight: 700
-                  }}>
+                  <span style={{ padding: '3px 10px', borderRadius: 50, background: '#00d4ff15', color: '#00d4ff', fontSize: '0.75rem', fontWeight: 700 }}>
                     {blog.category}
                   </span>
-
                   <span style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>
                     {new Date(blog.createdAt).toDateString()}
                   </span>
                 </div>
-
-                {/* Title */}
-                <h3 style={{
-                  fontFamily: 'Syne',
-                  fontWeight: 700,
-                  fontSize: '1.05rem',
-                  marginBottom: 10
-                }}>
-                  {blog.title}
-                </h3>
-
-                {/* Content Preview */}
-                <p style={{
-                  color: 'var(--text-muted)',
-                  fontSize: '0.875rem',
-                  marginBottom: 16
-                }}>
+                <h3 style={{ fontFamily: 'Syne', fontWeight: 700, fontSize: '1.05rem', marginBottom: 10 }}>{blog.title}</h3>
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem', marginBottom: 16 }}>
                   {stripHtml(blog.content).slice(0, 120)}...
                 </p>
-
-                {/* Read More */}
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  {/* <span style={{ fontSize: '0.8rem' }} className='d-flex justify-content-center align-item-center'><FaEye size={15} color='orange'/> {blog.viewsCount}</span> */}
-
-                  <span
-                    onClick={() => handleReadMore(blog.id)}
-                    style={{ cursor: 'pointer', color: '#00d4ff', fontWeight: 600 }}
-                  >
+                  <span onClick={() => handleReadMore(blog.id)} style={{ cursor: 'pointer', color: '#00d4ff', fontWeight: 600 }}>
                     Read More →
                   </span>
                 </div>
@@ -228,18 +173,34 @@ export function Blog() {
       </section>
     </div>
   );
-};
+}
 
 // ============ CONTACT ============
 export function Contact() {
+  const width = useWindowWidth();
+  const isMobile = width < 768;
+  const isTablet = width >= 768 && width < 1024;
+
   const [form, setForm] = useState({ name: '', email: '', service: '', message: '' });
   const [sent, setSent] = useState(false);
+
+  const inputStyle = {
+    width: '100%',
+    padding: '12px 16px',
+    background: 'var(--bg)',
+    border: '1px solid var(--border)',
+    borderRadius: 10,
+    color: 'var(--text)',
+    fontSize: '0.9rem',
+    outline: 'none',
+    fontFamily: 'DM Sans, sans-serif',
+    boxSizing: 'border-box',
+  };
 
   const handleSubmit = async () => {
     try {
       const res = await axios.post(`${baseURL}/contact`, form);
       if (form.name && form.email && form.message) setSent(true);
-      console.log("contact res: ", res.data);
       alert(res.data);
     } catch (err) {
       console.log("error contact: ", err);
@@ -248,54 +209,87 @@ export function Contact() {
 
   return (
     <div style={{ paddingTop: 72 }}>
-      <section style={{ padding: '100px 0 60px', position: 'relative' }}>
-        <div style={{ position: 'absolute', top: '30%', left: '20%', width: 500, height: 400, background: 'radial-gradient(ellipse, rgba(0,212,255,0.06) 0%, transparent 70%)', filter: 'blur(60px)', pointerEvents: 'none' }} />
+      {/* Hero */}
+      <section style={{ padding: isMobile ? '60px 0 40px' : '100px 0 60px', position: 'relative' }}>
+        <div style={{
+          position: 'absolute', top: '30%', left: '20%',
+          width: 500, height: 400,
+          background: 'radial-gradient(ellipse, rgba(0,212,255,0.06) 0%, transparent 70%)',
+          filter: 'blur(60px)', pointerEvents: 'none',
+        }} />
         <div className="container" style={{ position: 'relative' }}>
           <p className="section-label">Get In Touch</p>
-          <h1 className="section-title">Let's Build Something <span className="gradient-text">Great Together</span></h1>
-          <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem', maxWidth: 520 }}>
+          <h1 className="section-title" style={{ fontSize: isMobile ? 'clamp(1.6rem, 6vw, 2.2rem)' : undefined }}>
+            Let's Build Something <span className="gradient-text">Great Together</span>
+          </h1>
+          <p style={{ color: 'var(--text-muted)', fontSize: isMobile ? '0.95rem' : '1.1rem', maxWidth: 520, lineHeight: 1.7 }}>
             Ready to transform your business? Reach out and we'll get back to you within 24 hours.
           </p>
         </div>
       </section>
 
-      <section style={{ padding: '40px 0 100px' }}>
+      {/* Main Content */}
+      <section style={{ padding: isMobile ? '24px 0 64px' : '40px 0 100px' }}>
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: 64, alignItems: 'start' }}>
-            {/* Info */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: isMobile || isTablet ? '1fr' : '1fr 1.5fr',
+            gap: isMobile ? 32 : isTablet ? 40 : 64,
+            alignItems: 'start',
+          }}>
+
+            {/* ── Info Panel ── */}
             <div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 20, marginBottom: 40 }}>
+              {/* Contact items */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginBottom: 32 }}>
                 {[
-                  { icon: Mail, label: 'Email Us', value: 'Info@auroneqis.com', color: '#00d4ff' },
+                  { icon: Mail, label: 'Email Us', value: 'info@auroneqis.com', color: '#00d4ff' },
                   { icon: Phone, label: 'Call Us', value: '+91 7995582405', color: '#7c3aed' },
+                  { icon: Phone, label: 'HR', value: '+91 7799382405', color: '#b73aed' },
                   { icon: MapPin, label: 'Location', value: 'Hyderabad', color: '#06ffa5' },
-                ].map(({ icon: Icon, label, value, color }) => (
-                  <div key={label} style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
-                    <div style={{ width: 48, height: 48, borderRadius: 12, background: `${color}15`, border: `1px solid ${color}30`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                      <Icon size={20} color={color} />
+                ].map(({ icon: Ico, label, value, color }) => (
+                  <div key={label} style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
+                    <div style={{
+                      width: 46, height: 46, borderRadius: 12, flexShrink: 0,
+                      background: `${color}15`, border: `1px solid ${color}30`,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    }}>
+                      <Ico size={20} color={color} />
                     </div>
                     <div>
-                      <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: 2 }}>{label}</p>
-                      <p style={{ fontWeight: 600 }}>{value}</p>
+                      <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: 2 }}>{label}</p>
+                      <p style={{ fontWeight: 600, fontSize: isMobile ? '0.9rem' : '1rem', wordBreak: 'break-word' }}>{value}</p>
                     </div>
                   </div>
                 ))}
               </div>
 
+              {/* Strategy call card */}
               <div style={{ padding: '24px', background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 16 }}>
                 <h4 style={{ fontFamily: 'Syne', fontWeight: 700, marginBottom: 8 }}>Free Strategy Call</h4>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: 16 }}>Schedule a 30-min call with our experts to discuss your project and goals.</p>
-                <Link to="#" className="btn-outline" style={{ width: '100%', justifyContent: 'center', fontSize: '0.875rem' }}>
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: 16, lineHeight: 1.6 }}>
+                  Schedule a 30-min call with our experts to discuss your project and goals.
+                </p>
+                <Link
+                  to="#"
+                  className="btn-outline"
+                  style={{ width: '100%', justifyContent: 'center', fontSize: '0.875rem', display: 'flex', textAlign: 'center' }}
+                >
                   Book Free Consultation
                 </Link>
               </div>
             </div>
 
-            {/* Form */}
-            <div className="card">
+            {/* ── Contact Form ── */}
+            <div className="card" style={{ padding: isMobile ? '24px 16px' : '32px' }}>
               {sent ? (
                 <div style={{ textAlign: 'center', padding: '40px 0' }}>
-                  <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'rgba(6,255,165,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px' }}>
+                  <div style={{
+                    width: 64, height: 64, borderRadius: '50%',
+                    background: 'rgba(6,255,165,0.15)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    margin: '0 auto 20px',
+                  }}>
                     <Send size={28} color="var(--accent-3)" />
                   </div>
                   <h3 style={{ fontFamily: 'Syne', fontWeight: 800, fontSize: '1.4rem', marginBottom: 12 }}>Message Sent!</h3>
@@ -303,58 +297,75 @@ export function Contact() {
                 </div>
               ) : (
                 <div>
-                  <h3 style={{ fontFamily: 'Syne', fontWeight: 700, fontSize: '1.3rem', marginBottom: 28 }}>Send Us a Message</h3>
+                  <h3 style={{ fontFamily: 'Syne', fontWeight: 700, fontSize: '1.3rem', marginBottom: 24 }}>Send Us a Message</h3>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                    {[
-                      { key: 'name', label: 'Your Name', type: 'text', placeholder: 'John Doe' },
-                      { key: 'email', label: 'Email Address', type: 'email', placeholder: 'john@company.com' },
-                    ].map(f => (
-                      <div key={f.key}>
-                        <label style={{ display: 'block', marginBottom: 8, fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-muted)' }}>{f.label}</label>
-                        <input
-                          type={f.type} placeholder={f.placeholder}
-                          value={form[f.key]}
-                          onChange={e => setForm({ ...form, [f.key]: e.target.value })}
-                          style={{
-                            width: '100%', padding: '12px 16px', background: 'var(--bg)',
-                            border: '1px solid var(--border)', borderRadius: 10, color: 'var(--text)',
-                            fontSize: '0.9rem', outline: 'none', fontFamily: 'DM Sans, sans-serif',
-                          }}
-                          onFocus={e => e.target.style.borderColor = 'var(--accent)'}
-                          onBlur={e => e.target.style.borderColor = 'var(--border)'}
-                        />
-                      </div>
-                    ))}
+
+                    {/* Name + Email — side by side on tablet+, stacked on mobile */}
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+                      gap: 16,
+                    }}>
+                      {[
+                        { key: 'name', label: 'Your Name', type: 'text', placeholder: 'John Doe' },
+                        { key: 'email', label: 'Email Address', type: 'email', placeholder: 'john@company.com' },
+                      ].map(f => (
+                        <div key={f.key}>
+                          <label style={{ display: 'block', marginBottom: 8, fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-muted)' }}>{f.label}</label>
+                          <input
+                            type={f.type}
+                            placeholder={f.placeholder}
+                            value={form[f.key]}
+                            onChange={e => setForm({ ...form, [f.key]: e.target.value })}
+                            style={inputStyle}
+                            onFocus={e => e.target.style.borderColor = 'var(--accent)'}
+                            onBlur={e => e.target.style.borderColor = 'var(--border)'}
+                          />
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Service select */}
                     <div>
                       <label style={{ display: 'block', marginBottom: 8, fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-muted)' }}>Service Interested In</label>
                       <select
                         value={form.service}
                         onChange={e => setForm({ ...form, service: e.target.value })}
-                        style={{ width: '100%', padding: '12px 16px', background: 'var(--bg)', border: '1px solid var(--border)', borderRadius: 10, color: form.service ? 'var(--text)' : 'var(--text-muted)', fontSize: '0.9rem', outline: 'none', fontFamily: 'DM Sans, sans-serif' }}>
+                        style={{ ...inputStyle, color: form.service ? 'var(--text)' : 'var(--text-muted)' }}
+                      >
                         <option value="">Select a service</option>
                         {['WEB_DEVELOPMENT', 'MOBILE_APPLICATIONS', 'AI_MACHINE_LEARNING', 'CLOUD_SOLUTIONS', 'SOFTWARE_TESTING', 'IT_CONSULTING'].map(s => (
                           <option key={s} value={s}>{s}</option>
                         ))}
                       </select>
                     </div>
+
+                    {/* Message */}
                     <div>
                       <label style={{ display: 'block', marginBottom: 8, fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-muted)' }}>Message</label>
                       <textarea
-                        rows={5} placeholder="Tell us about your project..."
+                        rows={5}
+                        placeholder="Tell us about your project..."
                         value={form.message}
                         onChange={e => setForm({ ...form, message: e.target.value })}
-                        style={{ width: '100%', padding: '12px 16px', background: 'var(--bg)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--text)', fontSize: '0.9rem', outline: 'none', resize: 'vertical', fontFamily: 'DM Sans, sans-serif' }}
+                        style={{ ...inputStyle, resize: 'vertical' }}
                         onFocus={e => e.target.style.borderColor = 'var(--accent)'}
                         onBlur={e => e.target.style.borderColor = 'var(--border)'}
                       />
                     </div>
-                    <button onClick={handleSubmit} className="btn-primary" style={{ width: '100%', justifyContent: 'center', fontSize: '1rem', padding: '14px' }}>
+
+                    <button
+                      onClick={handleSubmit}
+                      className="btn-primary"
+                      style={{ width: '100%', justifyContent: 'center', fontSize: '1rem', padding: '14px', display: 'flex', alignItems: 'center', gap: 8 }}
+                    >
                       Send Message <Send size={16} />
                     </button>
                   </div>
                 </div>
               )}
             </div>
+
           </div>
         </div>
       </section>
