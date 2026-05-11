@@ -183,6 +183,9 @@ export function Contact() {
 
   const [form, setForm] = useState({ name: '', email: '', service: '', message: '' });
   const [sent, setSent] = useState(false);
+  const [errors, setErrors] = useState({});
+
+  const navigate = useNavigate();
 
   const inputStyle = {
     width: '100%',
@@ -197,13 +200,52 @@ export function Contact() {
     boxSizing: 'border-box',
   };
 
+  const validateForm = () => {
+    const newErrors = {};
+
+    // Name validation
+    if (!form.name.trim()) {
+      newErrors.name = "Name is required";
+    } else if (!/^[A-Za-z\s]+$/.test(form.name)) {
+      newErrors.name = "Name should contain only letters";
+    }
+
+    // Email validation
+    if (!form.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+      newErrors.email = "Enter a valid email address";
+    }
+
+    // Message validation
+    if (!form.message.trim()) {
+      newErrors.message = "Message is required";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = async () => {
+    if (!validateForm()) return;
+
     try {
       const res = await axios.post(`${baseURL}/contact`, form);
-      if (form.name && form.email && form.message) setSent(true);
+
       alert(res.data);
+
+      setSent(true);
+
+      // Reset the form
+      setForm({ name: '', email: '', service: '', message: '' });
+      setErrors({});
+
+      setTimeout(() => {
+        navigate('/thank-you');
+      }, 1500);
+
     } catch (err) {
-      console.log("error contact: ", err);
+      console.log('error contact: ', err);
     }
   };
 
@@ -316,11 +358,23 @@ export function Contact() {
                             type={f.type}
                             placeholder={f.placeholder}
                             value={form[f.key]}
-                            onChange={e => setForm({ ...form, [f.key]: e.target.value })}
-                            style={inputStyle}
+                            onChange={e => {
+                              setForm({ ...form, [f.key]: e.target.value });
+                              setErrors({ ...errors, [f.key]: '' });
+                            }}
+                            style={{
+                              ...inputStyle,
+                              border: errors[f.key] ? '1px solid red' : inputStyle.border
+                            }}
                             onFocus={e => e.target.style.borderColor = 'var(--accent)'}
                             onBlur={e => e.target.style.borderColor = 'var(--border)'}
                           />
+
+                          {errors[f.key] && (
+                            <p style={{ color: 'red', fontSize: '0.8rem', marginTop: 6 }}>
+                              {errors[f.key]}
+                            </p>
+                          )}
                         </div>
                       ))}
                     </div>

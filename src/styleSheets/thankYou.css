@@ -1,0 +1,307 @@
+/* ── Wrapper ── */
+.ty-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px 60px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ── Ambient glows (purely decorative) ── */
+.ty-glow {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(80px);
+    opacity: 0.55;
+}
+
+.ty-glow--blue {
+    width: 480px;
+    height: 380px;
+    top: 10%;
+    left: -8%;
+    background: radial-gradient(ellipse, rgba(0, 212, 255, 0.12) 0%, transparent 70%);
+}
+
+.ty-glow--green {
+    width: 420px;
+    height: 340px;
+    bottom: 8%;
+    right: -6%;
+    background: radial-gradient(ellipse, rgba(6, 255, 165, 0.10) 0%, transparent 70%);
+}
+
+/* ── Card ── */
+.ty-card {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 560px;
+    background: var(--bg-card, rgba(255, 255, 255, 0.04));
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    border-radius: 24px;
+    padding: 48px 40px 40px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* ── Check icon ring ── */
+.ty-icon-ring {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: rgba(6, 255, 165, 0.12);
+    border: 1px solid rgba(6, 255, 165, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    animation: ty-pop 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.ty-check-icon {
+    color: #06ffa5;
+}
+
+/* ── Heading ── */
+.ty-heading {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.8rem, 5vw, 2.4rem);
+    margin: 0 0 12px;
+    color: var(--text, #fff);
+    letter-spacing: -0.02em;
+}
+
+.ty-sub {
+    color: var(--text-muted, rgba(255, 255, 255, 0.55));
+    font-size: 1rem;
+    line-height: 1.65;
+    margin: 0 0 36px;
+}
+
+/* ── Steps ── */
+.ty-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 36px;
+    text-align: left;
+}
+
+.ty-step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--bg, rgba(255, 255, 255, 0.03));
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.07));
+    border-radius: 12px;
+    padding: 14px 16px;
+}
+
+.ty-step-num {
+    min-width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: rgba(0, 212, 255, 0.12);
+    border: 1px solid rgba(0, 212, 255, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #00d4ff;
+}
+
+.ty-step-icon {
+    color: var(--text-muted, rgba(255, 255, 255, 0.45));
+    flex-shrink: 0;
+}
+
+.ty-step-text {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--text-muted, rgba(255, 255, 255, 0.65));
+    line-height: 1.5;
+}
+
+/* ── Countdown ── */
+.ty-countdown {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+}
+
+.ty-countdown-ring {
+    --size: 68px;
+    --stroke: 3px;
+    --radius: calc(var(--size) / 2 - var(--stroke));
+    --circumference: calc(2 * 3.14159 * var(--radius));
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    background:
+        conic-gradient(#00d4ff calc(var(--pct, 100%)),
+            rgba(255, 255, 255, 0.08) 0%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: background 0.9s linear;
+}
+
+/* Inner fill to create donut look */
+.ty-countdown-ring::before {
+    content: '';
+    position: absolute;
+    inset: 5px;
+    border-radius: 50%;
+    background: var(--bg-card, #111);
+}
+
+.ty-countdown-num {
+    position: relative;
+    z-index: 1;
+    font-size: 1.4rem;
+    font-weight: 800;
+    font-family: 'Syne', sans-serif;
+    color: #00d4ff;
+    line-height: 1;
+}
+
+.ty-countdown-label {
+    color: var(--text-muted, rgba(255, 255, 255, 0.5));
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+/* ── Action buttons ── */
+.ty-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.ty-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 22px;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    text-decoration: none;
+    white-space: nowrap;
+    border: none;
+}
+
+.ty-btn:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+}
+
+.ty-btn:active {
+    transform: scale(0.97);
+}
+
+.ty-btn--primary {
+    background: linear-gradient(135deg, #00d4ff, #7c3aed);
+    color: #fff;
+}
+
+.ty-btn--outline {
+    background: transparent;
+    color: var(--text, #fff);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.15));
+}
+
+/* ── Entry animation ── */
+@keyframes ty-pop {
+    0% {
+        transform: scale(0.6);
+        opacity: 0;
+    }
+
+    60% {
+        transform: scale(1.08);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* ── Tablet (768px – 1023px) ── */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .ty-card {
+        max-width: 520px;
+        padding: 40px 36px 36px;
+    }
+
+    .ty-heading {
+        font-size: 2rem;
+    }
+}
+
+/* ── Mobile (< 768px) ── */
+@media (max-width: 767px) {
+    .ty-wrapper {
+        padding: 80px 16px 48px;
+        align-items: flex-start;
+    }
+
+    .ty-card {
+        padding: 32px 20px 28px;
+        border-radius: 18px;
+    }
+
+    .ty-heading {
+        font-size: 1.7rem;
+    }
+
+    .ty-sub {
+        font-size: 0.92rem;
+    }
+
+    .ty-actions {
+        flex-direction: column;
+    }
+
+    .ty-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .ty-glow--blue {
+        width: 280px;
+        height: 220px;
+        opacity: 0.4;
+    }
+
+    .ty-glow--green {
+        width: 240px;
+        height: 200px;
+        opacity: 0.35;
+    }
+}
+
+/* ── Small mobile (< 380px) ── */
+@media (max-width: 379px) {
+    .ty-card {
+        padding: 28px 16px 24px;
+    }
+
+    .ty-heading {
+        font-size: 1.5rem;
+    }
+}

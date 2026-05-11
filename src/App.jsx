@@ -12,6 +12,7 @@ import BlogForm from './admin/BlogForm';
 import BlogDashboard from './admin/BlogDashboard';
 import EditBlog from './admin/EditBlog';
 import BlogDetails from './components/BlogDetails';
+import { ThankYou } from './pages/ThankYou';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -48,6 +49,8 @@ function AppLayout() {
           <Route path="/admin_editBlog/:id" element={<EditBlog />} />
 
           <Route path= "/blog/details/:slug" element={<BlogDetails />} />
+
+          <Route path= "/thank-you" element={<ThankYou />} />
         </Routes>
       </main>
       <Footer />
