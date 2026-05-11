@@ -139,3 +139,53 @@ button:disabled {
 .ProseMirror li {
     margin: 4px 0;
 }
+
+/* Toolbar Styling */
+.editor-toolbar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.editor-toolbar button {
+    width: auto;
+    /* prevent full width */
+    padding: 8px 14px;
+    border: 1px solid #dcdcdc;
+    border-radius: 6px;
+    background: white;
+    color: #212cba;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.editor-toolbar button:hover {
+    background: #4caf50;
+    color: white;
+    border-color: #4caf50;
+}
+
+/* Active formatting button */
+.editor-toolbar button.is-active {
+    background: #4caf50;
+    color: white;
+    border-color: #4caf50;
+}
+
+/* Better editor spacing */
+.tiptap-editor {
+    min-height: 220px;
+}
+
+.tiptap-editor .ProseMirror {
+    min-height: 180px;
+    line-height: 1.6;
+}
+
+/* Link styling */
+.ProseMirror a {
+    color: #1976d2;
+    text-decoration: underline;
+}

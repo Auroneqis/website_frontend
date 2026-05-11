@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Zap, Mail, Phone, MapPin, Share2, Users, Code, ArrowUpRight } from "lucide-react";
+import { FaFacebook, FaLinkedin, FaInstagram } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 import { useEffect, useState } from 'react';
 import Logo from "../assets/auroneqis_logo.png";
 
@@ -26,7 +28,7 @@ const services = [
 
 const company = [
   { name: 'About Us', path: '/about' },
-  { name: 'Case Studies', path: '/case-studies' },
+  { name: 'Products', path: '/case-studies' },
   { name: 'Blog / Insights', path: '/blog' },
   { name: 'Contact Us', path: '/contact' },
   { name: 'Privacy Policy', path: '/privacy' },
@@ -117,15 +119,39 @@ export default function Footer() {
               Empowering businesses with scalable, secure, and intelligent technology solutions worldwide.
             </p>
             <div style={{ display: 'flex', gap: 10 }}>
-              {[Share2, Users, Code].map((Icon, i) => (
-                <a key={i} href="#" style={{
-                  width: 38, height: 38, borderRadius: 10,
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  background: 'var(--bg-card)', border: '1px solid var(--border)',
-                  color: 'var(--text-muted)', transition: 'all 0.2s',
-                }}
-                  onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.color = 'var(--accent)'; }}
-                  onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--text-muted)'; }}>
+              {[
+                { Icon: FaFacebook, link: "https://www.facebook.com/profile.php?id=61589297640329" },
+                { Icon: FaLinkedin, link: "https://www.linkedin.com/company/auroneqis-pvt-ltd/" },
+                { Icon: FaInstagram, link: "https://www.instagram.com/auroneqis_pvt_ltd/?hl=en" },
+                { Icon: FaXTwitter, link: "https://x.com/auroneqis" },
+              ].map(({ Icon, link }, i) => (
+                <a
+                  key={i}
+                  href={link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    width: 38,
+                    height: 38,
+                    borderRadius: 10,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    background: 'var(--bg-card)',
+                    border: '1px solid var(--border)',
+                    color: 'var(--text-muted)',
+                    transition: 'all 0.2s',
+                    textDecoration: 'none',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = 'var(--accent)';
+                    e.currentTarget.style.color = 'var(--accent)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'var(--border)';
+                    e.currentTarget.style.color = 'var(--text-muted)';
+                  }}
+                >
                   <Icon size={16} />
                 </a>
               ))}

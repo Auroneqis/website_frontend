@@ -4,12 +4,11 @@ import axios from "axios";
 import "../styleSheets/blogForm.css";
 import baseURL from "../api/api";
 
-// ✅ TipTap imports
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import Link from "@tiptap/extension-link";
 
 export default function BlogForm() {
-
     const navigate = useNavigate();
 
     const [loading, setLoading] = useState(false);
@@ -34,14 +33,26 @@ export default function BlogForm() {
         }
     };
 
-    // ✅ TipTap Editor
     const editor = useEditor({
-        extensions: [StarterKit],
+        extensions: [
+            StarterKit,
+            Link.configure({
+                openOnClick: false,
+            }),
+        ],
         content: form.content,
         onUpdate: ({ editor }) => {
             handleChange("content", editor.getHTML());
         },
     });
+
+    const setLink = () => {
+        const url = prompt("Enter URL");
+
+        if (!url) return;
+
+        editor.chain().focus().setLink({ href: url }).run();
+    };
 
     const submit = async (e) => {
         e.preventDefault();
@@ -66,9 +77,7 @@ export default function BlogForm() {
 
         } catch (error) {
             console.error("Blog creation failed:", error);
-            alert(
-                error?.response?.data?.message || "Something went wrong"
-            );
+            alert(error?.response?.data?.message || "Something went wrong");
         } finally {
             setLoading(false);
         }
@@ -76,9 +85,7 @@ export default function BlogForm() {
 
     return (
         <div className="blog-form-page">
-
             <form className="blog-form-card" onSubmit={submit}>
-
                 <h2>Create Blog</h2>
 
                 <div className="form-group">
@@ -90,9 +97,63 @@ export default function BlogForm() {
                     />
                 </div>
 
-                {/* ✅ UPDATED CONTENT EDITOR (UI same container) */}
                 <div className="form-group">
                     <label>Content</label>
+
+                    {/* Toolbar */}
+                    <div className="editor-toolbar">
+                        <button
+                            type="button"
+                            onClick={() =>
+                                editor.chain().focus().toggleHeading({ level: 1 }).run()
+                            }
+                        >
+                            H1
+                        </button>
+
+                        <button
+                            type="button"
+                            onClick={() =>
+                                editor.chain().focus().toggleHeading({ level: 2 }).run()
+                            }
+                        >
+                            H2
+                        </button>
+
+                        <button
+                            type="button"
+                            onClick={() =>
+                                editor.chain().focus().toggleBold().run()
+                            }
+                        >
+                            Bold
+                        </button>
+
+                        <button
+                            type="button"
+                            onClick={() =>
+                                editor.chain().focus().toggleItalic().run()
+                            }
+                        >
+                            Italic
+                        </button>
+
+                        <button
+                            type="button"
+                            onClick={() =>
+                                editor.chain().focus().toggleBulletList().run()
+                            }
+                        >
+                            Bullet List
+                        </button>
+
+                        <button
+                            type="button"
+                            onClick={setLink}
+                        >
+                            Link
+                        </button>
+                    </div>
 
                     <div className="tiptap-editor">
                         <EditorContent editor={editor} />
@@ -140,9 +201,7 @@ export default function BlogForm() {
                 <button disabled={loading}>
                     {loading ? "Creating..." : "Create Blog"}
                 </button>
-
             </form>
-
         </div>
     );
 };
