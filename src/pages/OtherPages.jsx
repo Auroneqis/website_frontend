@@ -181,7 +181,7 @@ export function Contact() {
   const isMobile = width < 768;
   const isTablet = width >= 768 && width < 1024;
 
-  const [form, setForm] = useState({ name: '', email: '', service: '', message: '' });
+  const [form, setForm] = useState({ name: '', email: '', service: '', message: '', phone: '' });
   const [sent, setSent] = useState(false);
   const [errors, setErrors] = useState({});
 
@@ -237,7 +237,7 @@ export function Contact() {
       setSent(true);
 
       // Reset the form
-      setForm({ name: '', email: '', service: '', message: '' });
+      setForm({ name: '', email: '', service: '', message: '', phone: '' });
       setErrors({});
 
       setTimeout(() => {
@@ -342,7 +342,7 @@ export function Contact() {
                   <h3 style={{ fontFamily: 'Syne', fontWeight: 700, fontSize: '1.3rem', marginBottom: 24 }}>Send Us a Message</h3>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
 
-                    {/* Name + Email — side by side on tablet+, stacked on mobile */}
+                    {/* Name + Email + Phone — side by side on tablet+, stacked on mobile */}
                     <div style={{
                       display: 'grid',
                       gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
@@ -351,6 +351,7 @@ export function Contact() {
                       {[
                         { key: 'name', label: 'Your Name', type: 'text', placeholder: 'John Doe' },
                         { key: 'email', label: 'Email Address', type: 'email', placeholder: 'john@company.com' },
+                        // { key: 'phone', label: 'Phone Number', type: 'tel', placeholder: '91********' },
                       ].map(f => (
                         <div key={f.key}>
                           <label style={{ display: 'block', marginBottom: 8, fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-muted)' }}>{f.label}</label>
@@ -379,19 +380,80 @@ export function Contact() {
                       ))}
                     </div>
 
-                    {/* Service select */}
-                    <div>
-                      <label style={{ display: 'block', marginBottom: 8, fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-muted)' }}>Service Interested In</label>
-                      <select
-                        value={form.service}
-                        onChange={e => setForm({ ...form, service: e.target.value })}
-                        style={{ ...inputStyle, color: form.service ? 'var(--text)' : 'var(--text-muted)' }}
-                      >
-                        <option value="">Select a service</option>
-                        {['WEB_DEVELOPMENT', 'MOBILE_APPLICATIONS', 'AI_MACHINE_LEARNING', 'CLOUD_SOLUTIONS', 'SOFTWARE_TESTING', 'IT_CONSULTING'].map(s => (
-                          <option key={s} value={s}>{s}</option>
-                        ))}
-                      </select>
+                    {/* Service + Phone */}
+                    <div
+                      style={{
+                        display: 'grid',
+                        gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+                        gap: 16,
+                      }}
+                    >
+                      {/* Service select */}
+                      <div>
+                        <label
+                          style={{
+                            display: 'block',
+                            marginBottom: 8,
+                            fontSize: '0.875rem',
+                            fontWeight: 600,
+                            color: 'var(--text-muted)',
+                          }}
+                        >
+                          Service Interested In
+                        </label>
+
+                        <select
+                          value={form.service}
+                          onChange={e => setForm({ ...form, service: e.target.value })}
+                          style={{
+                            ...inputStyle,
+                            color: form.service ? 'var(--text)' : 'var(--text-muted)',
+                          }}
+                        >
+                          <option value="">Select a service</option>
+
+                          {[
+                            'WEB_DEVELOPMENT',
+                            'MOBILE_APPLICATIONS',
+                            'AI_MACHINE_LEARNING',
+                            'CLOUD_SOLUTIONS',
+                            'SOFTWARE_TESTING',
+                            'IT_CONSULTING',
+                          ].map(s => (
+                            <option key={s} value={s}>
+                              {s}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      {/* Phone Number */}
+                      <div>
+                        <label
+                          style={{
+                            display: 'block',
+                            marginBottom: 8,
+                            fontSize: '0.875rem',
+                            fontWeight: 600,
+                            color: 'var(--text-muted)',
+                          }}
+                        >
+                          Phone Number
+                        </label>
+
+                        <input
+                          type="tel"
+                          placeholder="Enter phone number"
+                          value={form.phone}
+                          onChange={e => {
+                            const value = e.target.value.replace(/\D/g, '').slice(0, 10);
+
+                            setForm({ ...form, phone: value });
+                          }}
+                          style={inputStyle}
+                          maxLength={10}
+                        />
+                      </div>
                     </div>
 
                     {/* Message */}

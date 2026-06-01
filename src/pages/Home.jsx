@@ -102,7 +102,7 @@ export default function Home() {
             <div className="aq-hero-orbit-ring">
               <div className="aq-hero-orbit-inner">
                 <div className="aq-hero-logo-core">
-                  <img src={Logo} alt="auroneqis_logo" width="250" height="150" />
+                  <img src={Logo} alt="Auroneqis AI and Software Development Company Logo" width="250" height="150" />
                 </div>
               </div>
 
@@ -120,7 +120,7 @@ export default function Home() {
                   transform: `rotate(${i * 60}deg) translateX(150px) rotate(-${i * 60}deg)`,
                   boxShadow: `0 0 15px ${s.color}60`,
                 }}>
-                  <img src={s.icon} alt={s.title} width="30" height="30" />
+                  <img src={s.icon} alt={s.title} loading="lazy" width="30" height="30" />
                 </div>
               ))}
             </div>

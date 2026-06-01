@@ -6,6 +6,12 @@ import baseURL from "../api/api";
 
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import Link from "@tiptap/extension-link";
+
+import { Table } from "@tiptap/extension-table";
+import { TableRow } from "@tiptap/extension-table-row";
+import { TableHeader } from "@tiptap/extension-table-header";
+import { TableCell } from "@tiptap/extension-table-cell";
 
 export default function EditBlog() {
 
@@ -18,6 +24,7 @@ export default function EditBlog() {
 
     const [form, setForm] = useState({
         title: "",
+        description: "",
         content: "",
         category: "",
         keyword: "",
@@ -37,7 +44,22 @@ export default function EditBlog() {
 
     // ✅ TipTap Editor
     const editor = useEditor({
-        extensions: [StarterKit],
+        extensions: [
+            StarterKit,
+
+            Link.configure({
+                openOnClick: false,
+            }),
+
+            Table.configure({
+                resizable: true,
+            }),
+
+            TableRow,
+            TableHeader,
+            TableCell,
+        ],
+
         content: "",
         onUpdate: ({ editor }) => {
             handleChange("content", editor.getHTML());
@@ -55,6 +77,7 @@ export default function EditBlog() {
 
                 setForm({
                     title: blogData.title || "",
+                    description: blogData.description || "",
                     content: blogData.content || "",
                     category: blogData.category || "",
                     keyword: blogData.keyword || "",
@@ -140,9 +163,71 @@ export default function EditBlog() {
                     />
                 </div>
 
+                <div className="form-group">
+                    <label>Description</label>
+                    <input
+                        value={form.description}
+                        onChange={e => handleChange("description", e.target.value)}
+                        required
+                    />
+                </div>
+
                 {/* ✅ SAME UI (TipTap editor) */}
                 <div className="form-group">
                     <label>Content</label>
+
+                    <div className="editor-toolbar">
+
+                        <button
+                            type="button"
+                            onClick={() =>
+                                editor.chain().focus().toggleHeading({ level: 1 }).run()
+                            }
+                        >
+                            H1
+                        </button>
+
+                        <button
+                            type="button"
+                            onClick={() =>
+                                editor.chain().focus().toggleHeading({ level: 2 }).run()
+                            }
+                        >
+                            H2
+                        </button>
+
+                        <button
+                            type="button"
+                            onClick={() =>
+                                editor.chain().focus().toggleBold().run()
+                            }
+                        >
+                            Bold
+                        </button>
+
+                        <button
+                            type="button"
+                            onClick={() =>
+                                editor.chain().focus().toggleItalic().run()
+                            }
+                        >
+                            Italic
+                        </button>
+
+                        <button
+                            type="button"
+                            onClick={() =>
+                                editor.chain().focus().insertTable({
+                                    rows: 3,
+                                    cols: 3,
+                                    withHeaderRow: true,
+                                }).run()
+                            }
+                        >
+                            Table
+                        </button>
+
+                    </div>
 
                     <div className="tiptap-editor">
                         <EditorContent editor={editor} />

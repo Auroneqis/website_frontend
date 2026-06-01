@@ -13,6 +13,7 @@ import BlogDashboard from './admin/BlogDashboard';
 import EditBlog from './admin/EditBlog';
 import BlogDetails from './components/BlogDetails';
 import { ThankYou } from './pages/ThankYou';
+import HRMS from './components/products/HRMS';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -51,6 +52,8 @@ function AppLayout() {
           <Route path= "/blog/details/:slug" element={<BlogDetails />} />
 
           <Route path= "/thank-you" element={<ThankYou />} />
+
+          <Route path= "/products/auroneqis_hrms" element={<HRMS />} />
         </Routes>
       </main>
       <Footer />

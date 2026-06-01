@@ -12,11 +12,17 @@ const services = [
   { name: 'IT Consulting', path: '/services/consulting' },
 ];
 
+const products = [
+  { name: 'HRMS', path: '/products/auroneqis_hrms' },
+  { name: 'Product 2', path: '/products/product-2' },
+  { name: 'Product 3', path: '/products/product-3' },
+];
+
 const navLinks = [
   { name: 'Home', path: '/' },
   { name: 'About', path: '/about' },
   { name: 'Services', path: '/services', dropdown: services },
-  { name: 'Products', path: '/case-studies' },
+  { name: 'Products', path: '#', dropdown: products },
   { name: 'Blog', path: '/blog' },
   { name: 'Contact', path: '/contact' },
 ];
@@ -24,7 +30,7 @@ const navLinks = [
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [dropOpen, setDropOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -35,7 +41,7 @@ export default function Navbar() {
 
   useEffect(() => {
     setOpen(false);
-    setDropOpen(false);
+    setOpenDropdown(null);
   }, [location]);
 
   return (
@@ -123,11 +129,12 @@ export default function Navbar() {
               <div
                 key={link.name}
                 style={{ position: 'relative' }}
-                onMouseEnter={() => setDropOpen(true)}
-                onMouseLeave={() => setDropOpen(false)}
+                onMouseEnter={() => setOpenDropdown(link.name)}
+                onMouseLeave={() => setOpenDropdown(null)}
               >
                 <Link
-                  to={link.path}
+                  to="#"
+                  onClick={(e) => e.preventDefault()}
                   style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -142,7 +149,7 @@ export default function Navbar() {
                   {link.name} <ChevronDown size={14} />
                 </Link>
 
-                {dropOpen && (
+                {openDropdown === link.name && (
                   <div style={{
                     position: 'absolute',
                     top: '100%',

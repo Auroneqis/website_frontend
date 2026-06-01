@@ -8,6 +8,11 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Link from "@tiptap/extension-link";
 
+import { Table } from "@tiptap/extension-table";
+import { TableRow } from "@tiptap/extension-table-row";
+import { TableHeader } from "@tiptap/extension-table-header";
+import { TableCell } from "@tiptap/extension-table-cell";
+
 export default function BlogForm() {
     const navigate = useNavigate();
 
@@ -16,6 +21,7 @@ export default function BlogForm() {
 
     const [form, setForm] = useState({
         title: "",
+        description: "",
         content: "",
         category: "",
         keyword: "",
@@ -39,8 +45,17 @@ export default function BlogForm() {
             Link.configure({
                 openOnClick: false,
             }),
+
+            Table.configure({
+                resizable: true,
+            }),
+            TableRow,
+            TableHeader,
+            TableCell,
         ],
+
         content: form.content,
+
         onUpdate: ({ editor }) => {
             handleChange("content", editor.getHTML());
         },
@@ -93,6 +108,15 @@ export default function BlogForm() {
                     <input
                         value={form.title}
                         onChange={e => handleChange("title", e.target.value)}
+                        required
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label>Description</label>
+                    <input
+                        value={form.description}
+                        onChange={e => handleChange("description", e.target.value)}
                         required
                     />
                 </div>
@@ -152,6 +176,47 @@ export default function BlogForm() {
                             onClick={setLink}
                         >
                             Link
+                        </button>
+
+                        {/* table */}
+                        <button
+                            type="button"
+                            onClick={() =>
+                                editor.chain().focus().insertTable({
+                                    rows: 3,
+                                    cols: 3,
+                                    withHeaderRow: true,
+                                }).run()
+                            }
+                        >
+                            Table
+                        </button>
+
+                        <button
+                            type="button"
+                            onClick={() =>
+                                editor.chain().focus().addColumnAfter().run()
+                            }
+                        >
+                            Add Column
+                        </button>
+
+                        <button
+                            type="button"
+                            onClick={() =>
+                                editor.chain().focus().addRowAfter().run()
+                            }
+                        >
+                            Add Row
+                        </button>
+
+                        <button
+                            type="button"
+                            onClick={() =>
+                                editor.chain().focus().deleteTable().run()
+                            }
+                        >
+                            Delete Table
                         </button>
                     </div>
 
