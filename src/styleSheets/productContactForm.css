@@ -1,0 +1,594 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+
+/* ---- Root Variables ---- */
+:root {
+    --pcf-bg: #0c0f1a;
+    --pcf-surface: #131726;
+    --pcf-surface-2: #1c2236;
+    --pcf-border: #252d47;
+    --pcf-border-focus: #4f6ef7;
+    --pcf-accent: #4f6ef7;
+    --pcf-accent-glow: rgba(79, 110, 247, 0.25);
+    --pcf-accent-2: #e05aff;
+    --pcf-text-primary: #eef0f8;
+    --pcf-text-secondary: #8892b0;
+    --pcf-text-muted: #4a5270;
+    --pcf-error: #ff5c7a;
+    --pcf-success: #3dd68c;
+    --pcf-radius: 14px;
+    --pcf-radius-sm: 8px;
+    --pcf-font-display: 'Syne', sans-serif;
+    --pcf-font-body: 'DM Sans', sans-serif;
+    --pcf-transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---- Wrapper ---- */
+.pcf__wrapper {
+    min-height: 100vh;
+    width: 100%;
+    background: var(--pcf-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 16px;
+    font-family: var(--pcf-font-body);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Decorative background blobs */
+.pcf__bg-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.pcf__bg-blob--1 {
+    width: 520px;
+    height: 520px;
+    background: radial-gradient(circle, rgba(79, 110, 247, 0.18) 0%, transparent 70%);
+    top: -120px;
+    left: -100px;
+}
+
+.pcf__bg-blob--2 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(224, 90, 255, 0.13) 0%, transparent 70%);
+    bottom: -80px;
+    right: -80px;
+}
+
+/* ---- Card ---- */
+.pcf__card {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 660px;
+    background: var(--pcf-surface);
+    border: 1px solid var(--pcf-border);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow:
+        0 0 0 1px rgba(79, 110, 247, 0.08),
+        0 32px 80px rgba(0, 0, 0, 0.5);
+    animation: pcf-cardIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes pcf-cardIn {
+    from {
+        opacity: 0;
+        transform: translateY(28px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ---- Header ---- */
+.pcf__header {
+    padding: 40px 40px 32px;
+    border-bottom: 1px solid var(--pcf-border);
+    background: linear-gradient(135deg, rgba(79, 110, 247, 0.07) 0%, transparent 60%);
+    position: relative;
+}
+
+.pcf__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(79, 110, 247, 0.12);
+    border: 1px solid rgba(79, 110, 247, 0.3);
+    color: var(--pcf-accent);
+    font-family: var(--pcf-font-display);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+}
+
+.pcf__badge-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--pcf-accent);
+    border-radius: 50%;
+    animation: pcf-pulse 2s ease-in-out infinite;
+}
+
+@keyframes pcf-pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale(0.7);
+    }
+}
+
+.pcf__title {
+    font-family: var(--pcf-font-display);
+    font-size: clamp(26px, 5vw, 34px);
+    font-weight: 800;
+    color: var(--pcf-text-primary);
+    line-height: 1.15;
+    margin: 0 0 10px;
+    letter-spacing: -0.02em;
+}
+
+.pcf__title-accent {
+    background: linear-gradient(90deg, var(--pcf-accent), var(--pcf-accent-2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.pcf__subtitle {
+    font-size: 14px;
+    color: var(--pcf-text-secondary);
+    margin: 0;
+    font-weight: 300;
+    line-height: 1.6;
+    max-width: 400px;
+}
+
+/* ---- Form Body ---- */
+.pcf__body {
+    padding: 36px 40px 40px;
+}
+
+.pcf__form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+/* ---- Row (two columns) ---- */
+.pcf__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+/* ---- Field ---- */
+.pcf__field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    animation: pcf-fieldIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.pcf__field:nth-child(1) {
+    animation-delay: 0.05s;
+}
+
+.pcf__field:nth-child(2) {
+    animation-delay: 0.10s;
+}
+
+.pcf__field:nth-child(3) {
+    animation-delay: 0.15s;
+}
+
+.pcf__field:nth-child(4) {
+    animation-delay: 0.20s;
+}
+
+.pcf__field:nth-child(5) {
+    animation-delay: 0.25s;
+}
+
+.pcf__field:nth-child(6) {
+    animation-delay: 0.30s;
+}
+
+@keyframes pcf-fieldIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.pcf__label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--pcf-text-secondary);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.pcf__label-required {
+    color: var(--pcf-accent);
+    margin-left: 3px;
+}
+
+/* ---- Input Wrapper (for icon+input) ---- */
+.pcf__input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.pcf__input-icon {
+    position: absolute;
+    left: 14px;
+    color: var(--pcf-text-muted);
+    pointer-events: none;
+    transition: color var(--pcf-transition);
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+}
+
+.pcf__input-wrap:focus-within .pcf__input-icon {
+    color: var(--pcf-accent);
+}
+
+/* ---- Input / Select / Textarea ---- */
+.pcf__input,
+.pcf__select,
+.pcf__textarea {
+    width: 100%;
+    background: var(--pcf-surface-2);
+    border: 1.5px solid var(--pcf-border);
+    border-radius: var(--pcf-radius-sm);
+    color: var(--pcf-text-primary);
+    font-family: var(--pcf-font-body);
+    font-size: 14px;
+    font-weight: 400;
+    transition:
+        border-color var(--pcf-transition),
+        box-shadow var(--pcf-transition),
+        background var(--pcf-transition);
+    outline: none;
+    box-sizing: border-box;
+}
+
+.pcf__input,
+.pcf__select {
+    height: 46px;
+    padding: 0 14px 0 40px;
+}
+
+.pcf__select {
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    padding-right: 36px;
+}
+
+.pcf__select-arrow {
+    position: absolute;
+    right: 12px;
+    color: var(--pcf-text-muted);
+    pointer-events: none;
+    transition: color var(--pcf-transition);
+    display: flex;
+}
+
+.pcf__input-wrap:focus-within .pcf__select-arrow {
+    color: var(--pcf-accent);
+}
+
+.pcf__textarea {
+    padding: 12px 14px 12px 40px;
+    min-height: 110px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+/* Placeholder */
+.pcf__input::placeholder,
+.pcf__textarea::placeholder {
+    color: var(--pcf-text-muted);
+}
+
+/* Focus state */
+.pcf__input:focus,
+.pcf__select:focus,
+.pcf__textarea:focus {
+    border-color: var(--pcf-border-focus);
+    background: #161b2e;
+    box-shadow: 0 0 0 3px var(--pcf-accent-glow);
+}
+
+/* Error state */
+.pcf__input--error,
+.pcf__select--error,
+.pcf__textarea--error {
+    border-color: var(--pcf-error) !important;
+    box-shadow: 0 0 0 3px rgba(255, 92, 122, 0.15) !important;
+}
+
+/* Select option styling */
+.pcf__select option {
+    background: var(--pcf-surface-2);
+    color: var(--pcf-text-primary);
+}
+
+/* ---- Error Message ---- */
+.pcf__error {
+    font-size: 11.5px;
+    color: var(--pcf-error);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    animation: pcf-errorIn 0.2s ease both;
+    line-height: 1.4;
+}
+
+@keyframes pcf-errorIn {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ---- Submit Button ---- */
+.pcf__btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 52px;
+    border: none;
+    border-radius: var(--pcf-radius-sm);
+    background: linear-gradient(135deg, var(--pcf-accent) 0%, #6a3de8 100%);
+    color: #fff;
+    font-family: var(--pcf-font-display);
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    overflow: hidden;
+    transition:
+        transform var(--pcf-transition),
+        box-shadow var(--pcf-transition),
+        opacity var(--pcf-transition);
+    margin-top: 4px;
+}
+
+.pcf__btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity var(--pcf-transition);
+}
+
+.pcf__btn:hover:not(:disabled)::before {
+    opacity: 1;
+}
+
+.pcf__btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(79, 110, 247, 0.4);
+}
+
+.pcf__btn:active:not(:disabled) {
+    transform: translateY(0px) scale(0.98);
+}
+
+.pcf__btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.pcf__btn-icon {
+    font-size: 16px;
+    transition: transform var(--pcf-transition);
+}
+
+.pcf__btn:hover:not(:disabled) .pcf__btn-icon {
+    transform: translateX(3px);
+}
+
+/* Spinner */
+.pcf__spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: pcf-spin 0.7s linear infinite;
+}
+
+@keyframes pcf-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ---- Success State ---- */
+.pcf__success {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 60px 40px;
+    text-align: center;
+    animation: pcf-cardIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.pcf__success-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: rgba(61, 214, 140, 0.12);
+    border: 2px solid var(--pcf-success);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    animation: pcf-popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both 0.1s;
+}
+
+@keyframes pcf-popIn {
+    from {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.pcf__success-title {
+    font-family: var(--pcf-font-display);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--pcf-text-primary);
+    margin: 0;
+}
+
+.pcf__success-text {
+    font-size: 14px;
+    color: var(--pcf-text-secondary);
+    margin: 0;
+    line-height: 1.7;
+    max-width: 320px;
+}
+
+.pcf__success-back {
+    margin-top: 8px;
+    background: none;
+    border: 1.5px solid var(--pcf-border);
+    color: var(--pcf-text-secondary);
+    font-family: var(--pcf-font-body);
+    font-size: 13px;
+    padding: 9px 22px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition:
+        border-color var(--pcf-transition),
+        color var(--pcf-transition);
+}
+
+.pcf__success-back:hover {
+    border-color: var(--pcf-accent);
+    color: var(--pcf-accent);
+}
+
+/* ---- Divider ---- */
+.pcf__divider {
+    height: 1px;
+    background: var(--pcf-border);
+    margin: 0 -40px;
+    opacity: 0.5;
+}
+
+/* ---- Footer Note ---- */
+.pcf__footer-note {
+    font-size: 12px;
+    color: var(--pcf-text-muted);
+    text-align: center;
+    margin-top: 4px;
+}
+
+/* ===================================================
+   RESPONSIVE
+   =================================================== */
+
+/* Tablet (≤768px) */
+@media (max-width: 768px) {
+    .pcf__wrapper {
+        padding: 32px 12px;
+    }
+
+    .pcf__header {
+        padding: 28px 24px 22px;
+    }
+
+    .pcf__body {
+        padding: 26px 24px 30px;
+    }
+
+    .pcf__row {
+        grid-template-columns: 1fr;
+        gap: 22px;
+    }
+}
+
+/* Mobile (≤480px) */
+@media (max-width: 480px) {
+    .pcf__wrapper {
+        padding: 16px 8px;
+        align-items: flex-start;
+    }
+
+    .pcf__card {
+        border-radius: 18px;
+    }
+
+    .pcf__header {
+        padding: 22px 18px 18px;
+    }
+
+    .pcf__body {
+        padding: 20px 18px 24px;
+    }
+
+    .pcf__title {
+        font-size: 22px;
+    }
+
+    .pcf__input,
+    .pcf__select {
+        height: 44px;
+        font-size: 13px;
+    }
+
+    .pcf__textarea {
+        font-size: 13px;
+    }
+
+    .pcf__btn {
+        height: 48px;
+        font-size: 14px;
+    }
+}

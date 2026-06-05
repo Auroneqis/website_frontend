@@ -14,8 +14,8 @@ const services = [
 
 const products = [
   { name: 'HRMS', path: '/products/auroneqis_hrms' },
-  { name: 'Product 2', path: '/products/product-2' },
-  { name: 'Product 3', path: '/products/product-3' },
+  // { name: 'Product 2', path: '/products/product-2' },
+  // { name: 'Product 3', path: '/products/product-3' },
 ];
 
 const navLinks = [

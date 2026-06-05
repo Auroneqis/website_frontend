@@ -5,6 +5,7 @@ import payroll from "../../assets/payroll.png";
 import attendance from "../../assets/attendance.png";
 import dashboard from "../../assets/dashboard.png";
 import employee from "../../assets/employee.png";
+import { useNavigate } from "react-router-dom";
 
 const FEATURES = [
     {
@@ -99,6 +100,8 @@ export default function HRMS() {
     const [activeTab, setActiveTab] = useState("payroll");
     const [openFaq, setOpenFaq] = useState(null);
 
+    const navigate = useNavigate();
+
     const toggleFaq = (i) => setOpenFaq(openFaq === i ? null : i);
 
     return (
@@ -149,8 +152,8 @@ export default function HRMS() {
                             The only manager-centric platform built for decentralized growth. Automate your cloud payroll operations while giving reporting managers total autonomy over their teams.
                         </p>
                         <div className="arn-hero-actions">
-                            <button className="arn-btn-primary" id="trial">Start Your Free Trial</button>
-                            <button className="arn-btn-secondary">Schedule a Demo</button>
+                            <button className="arn-btn-primary" id="trial" onClick={() => navigate("/products/contact_form")}>Start Your Free Trial</button>
+                            <button className="arn-btn-secondary" onClick={() => navigate("/products/contact_form")}>Schedule a Demo</button>
                         </div>
                         <p className="arn-microcopy">No credit card required. Setup in minutes.</p>
                     </div>
@@ -317,7 +320,7 @@ export default function HRMS() {
                                 <li>Employee self-service portal</li>
                                 <li>Email support</li>
                             </ul>
-                            <button className="arn-btn-plan arn-btn-plan-outline">Login to Portal</button>
+                            <button className="arn-btn-plan arn-btn-plan-outline" onClick={() => navigate("/products/contact_form")}>Login to Portal</button>
                         </div>
 
                         {/* Growth – Featured */}
@@ -336,7 +339,7 @@ export default function HRMS() {
                                 <li>Biometric sync</li>
                                 <li>Priority support</li>
                             </ul>
-                            <button className="arn-btn-plan arn-btn-plan-fill">Login to Portal</button>
+                            <button className="arn-btn-plan arn-btn-plan-fill" onClick={() => navigate("/products/contact_form")}>Login to Portal</button>
                         </div>
 
                         {/* Enterprise */}
@@ -353,7 +356,7 @@ export default function HRMS() {
                                 <li>Dedicated HITEC City support</li>
                                 <li>SLA guarantee</li>
                             </ul>
-                            <button className="arn-btn-plan arn-btn-plan-outline">Contact Sales</button>
+                            <button className="arn-btn-plan arn-btn-plan-outline" onClick={() => navigate("/products/contact_form")}>Contact Sales</button>
                         </div>
                     </div>
                 </div>
@@ -428,7 +431,7 @@ export default function HRMS() {
             <section className="arn-footer-cta">
                 <h2>Ready to transform your workplace?</h2>
                 <p>Join 500+ growing companies across Hyderabad and India who trust Auroneqis.</p>
-                <button className="arn-btn-primary">Transform Your HR Today</button>
+                <button className="arn-btn-primary" onClick={() => navigate("/products/contact_form")}>Transform Your HR Today</button>
             </section>
 
             {/* ── FOOTER ── */}

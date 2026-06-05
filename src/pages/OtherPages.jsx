@@ -181,7 +181,7 @@ export function Contact() {
   const isMobile = width < 768;
   const isTablet = width >= 768 && width < 1024;
 
-  const [form, setForm] = useState({ name: '', email: '', service: '', message: '', phone: '' });
+  const [form, setForm] = useState({ name: '', email: '', service: '', message: '', phoneNumber: '' });
   const [sent, setSent] = useState(false);
   const [errors, setErrors] = useState({});
 
@@ -217,6 +217,13 @@ export function Contact() {
       newErrors.email = "Enter a valid email address";
     }
 
+    // Phone number validation
+    if (!form.phoneNumber.trim()) {
+      newErrors.phoneNumber = "Phone number is required";
+    } else if (!/^\+?[1-9]\d{1,14}$/.test(form.phoneNumber)) {
+      newErrors.phoneNumber = "Enter a valid phone number";
+    }
+
     // Message validation
     if (!form.message.trim()) {
       newErrors.message = "Message is required";
@@ -237,7 +244,7 @@ export function Contact() {
       setSent(true);
 
       // Reset the form
-      setForm({ name: '', email: '', service: '', message: '', phone: '' });
+      setForm({ name: '', email: '', service: '', message: '', phoneNumber: '' });
       setErrors({});
 
       setTimeout(() => {
@@ -444,11 +451,11 @@ export function Contact() {
                         <input
                           type="tel"
                           placeholder="Enter phone number"
-                          value={form.phone}
+                          value={form.phoneNumber}
                           onChange={e => {
                             const value = e.target.value.replace(/\D/g, '').slice(0, 10);
 
-                            setForm({ ...form, phone: value });
+                            setForm({ ...form, phoneNumber: value });
                           }}
                           style={inputStyle}
                           maxLength={10}
